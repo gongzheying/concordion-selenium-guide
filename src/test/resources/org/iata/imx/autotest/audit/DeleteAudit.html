@@ -1,0 +1,35 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" >
+<head>
+<meta charset="UTF-8" />
+<title>Delete a audit</title>
+<link href="../../../../../concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>Delete a audit</h1>
+
+
+<div class="example">
+
+<ol>
+<li>
+	<div concordion:execute="#result = enter()">
+		Navigate to page "List View" in AUDIT/INSPECTIONS module,
+		the "<b><span concordion:assertEquals="#result">searchAudits</span></b>" page  will be displayed.	
+	</div>
+</li>	
+
+<li>
+    <div>
+       Click the audit number created in case AUDIT_02,System redirectes into "View Audit" page.Cick "Delete"
+       The audit <b><span concordion:assert-true="deleteAudit()">is deleteed</span></b> .
+ 
+    </div>
+</li>
+
+</ol>
+
+</div>
+
+</body>
+</html>

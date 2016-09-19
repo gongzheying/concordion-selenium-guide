@@ -1,0 +1,30 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" >
+<head>
+<meta charset="UTF-8" />
+<title>Login IMX system</title>
+<link href="../../../../concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>Login IMX system</h1>
+
+
+<div class="example">
+
+    <p  concordion:execute="#result = getLogininfo(#username,#password)">
+        The username "<b><span concordion:set="#username">admin</span></b>" 
+        and password "<b><span concordion:set="#password">Admin123</span></b>" 
+        login IMX will be display message: "<b><span concordion:assertEquals="#result">Welcome  Administrator</span></b>"
+
+    </p>
+
+
+   
+
+
+
+
+</div>
+
+</body>
+</html>

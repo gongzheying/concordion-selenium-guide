@@ -1,0 +1,99 @@
+apply plugin: "java"
+apply plugin: "maven"
+
+group = "org.iata"
+// artifactId is taken by default, from folder name
+version = "0.1-SNAPSHOT"
+description = "IMX auto testing"
+buildDir = "target"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+wrapper {
+    gradleVersion = "3.0"
+}
+
+repositories {
+    maven{ url "http://172.17.193.144:8081/nexus/content/groups/public" }
+    mavenCentral()
+
+}
+
+ext {
+    concordionVersion = "[2.0.0,)"
+    concordionScreenshotVersion = "[1.2.0,)"
+    seleniumVersion = "[2.43,2.53.1]"
+    slf4jVersion = "1.7.21"
+    
+}
+
+dependencies {
+    testCompile "org.slf4j:slf4j-api:$slf4jVersion",
+                "org.slf4j:slf4j-log4j12:$slf4jVersion",
+                "org.concordion:concordion:$concordionVersion",
+                "org.concordion:concordion-screenshot-extension:$concordionScreenshotVersion",
+                "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+    
+}
+
+test {
+    include "**/Autotest.*"
+
+    // Firefox 32bit (default)
+    systemProperties["org.iata.selenium.browser"] = "org.iata.selenium.FirefoxBrowser"
+    //systemProperties["webdriver.firefox.bin"] = "C:\\Program Files\\Mozilla Firefox\\firefox.exe"
+
+    // IExplorer
+    //systemProperties["org.iata.selenium.browser"] = "org.iata.selenium.IExploreBrowser"
+    //systemProperties["webdriver.ie.driver"] = "IEDriverServer.exe"
+
+    systemProperties["concordion.output.dir"] = "$reporting.baseDir/spec"
+    outputs.upToDateWhen { false } // force it to run even if test code hasn"t changed
+    
+    // set heap size for the test JVM(s)
+    minHeapSize = "1g"
+    maxHeapSize = "2g"
+
+  
+    // set JVM arguments for the test JVM(s)
+    jvmArgs = [ "-Dfile.encoding=UTF-8", 
+                "-Dcom.sun.management.jmxremote", 
+                "-Dcom.sun.management.jmxremote.port=41099",
+                "-Dcom.sun.management.jmxremote.ssl=false",
+                "-Dcom.sun.management.jmxremote.authenticate=false",
+                "-XX:+UnlockCommercialFeatures", 
+                "-XX:+FlightRecorder" ]  
+    
+}
+
+
+task writeNewPom << {
+    pom  { 
+        project {
+            inceptionYear "2014"
+            licenses {
+                license {
+                    name "The Apache Software License, Version 2.0"
+                    url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    distribution "repo"
+                }
+            }
+        }
+    }.withXml {
+        asNode().appendNode("build").appendNode("plugins").appendNode("plugin").with {
+            appendNode("groupId", "org.apache.maven.plugins")
+            appendNode("artifactId", "maven-compiler-plugin")
+            appendNode("configuration").with {
+                appendNode("source", "1.8")
+                appendNode("target", "1.8")
+            }
+        }
+    
+
+    }.writeTo("pom.xml")
+}

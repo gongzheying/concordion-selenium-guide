@@ -1,0 +1,31 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" >
+<head>
+<meta charset="UTF-8" />
+<title>Testcase List</title>
+<link href="../../../../concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+
+<h1>Testcase List</h1>
+<div class="example">
+    <p >After open the window "<b><span concordion:execute="open(#TEXT)">http://111.160.254.59:8081/imx</span></b>",
+        Concordion'll process these testcases, and outputs HTML based on the input document with the results marked up.
+    </p>
+
+
+    <p>
+        <a concordion:run="concordion" href="Login.html" >Login IMX system</a> .
+    </p>
+
+    <p>
+        <a concordion:run="concordion" href="audit/Audit.html" >Audit maintenance</a> .
+    </p>
+
+
+    <p>
+        <a concordion:run="concordion" href="Logout.html" >Logout IMX system</a> .
+    </p>
+</div>
+</body>
+</html>
