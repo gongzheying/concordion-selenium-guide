@@ -1,0 +1,47 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" >
+<head>
+<meta charset="UTF-8" />
+<title>Search a audit</title>
+<link href="../../../../../concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>Search a audit</h1>
+
+
+<div class="example">
+
+
+<ol>
+<li>
+	<div concordion:execute="#result = enter()">
+		Navigate to page "List View" in AUDIT/INSPECTIONS module,
+		the "<b><span concordion:assertEquals="#result">searchAudits</span></b>" page  will be displayed.	
+	</div>
+</li>	
+
+<li>
+    <div concordion:execute="#result = searchAudit(#audit,#type,#text)">
+       Select "Audit/Inspection","Type" and click "Search",
+       The audit with number "<b><span concordion:assertEquals="#result">AUDIT-2016-100</span></b>" is displayed.
+        <table border="1">
+        	<tr>
+        		<th>audit</th>
+        		<th>type</th>
+        		<th>text</th>
+        	</tr>
+        	<tr>
+        		<td concordion:set="#audit">Audit</td>
+        		<td concordion:set="#type">Internal</td>
+        		<td concordion:set="#text">AUDIT-2016-100</td>
+        	</tr>
+        </table>
+    </div>
+</li>
+
+</ol>
+
+</div>
+
+</body>
+</html>

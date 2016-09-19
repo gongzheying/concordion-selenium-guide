@@ -1,0 +1,64 @@
+<html xmlns:concordion="http://www.concordion.org/2007/concordion" >
+<head>
+<meta charset="UTF-8" />
+<title>Create a audit</title>
+<link href="../../../../../concordion.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<h1>Create a audit</h1>
+
+
+<div class="example">
+
+<ol>
+<li>
+    <div concordion:execute="#result = enter()">
+        Navigate to page "New Audit" in AUDIT/INSPECTIONS module,
+        the "<b><span concordion:assertEquals="#result">New Audit</span></b>" page will be displayed.   
+    </div>
+</li>
+
+<li>
+    <div  concordion:execute="#result = save(#type,#subType,#location,#auditee,#leadAuditor,#scopeType,#scope)">
+        Enter or select the value as the following table, and Click the Save button, 
+        the "<b><span concordion:assertEquals="#result">View Audit</span></b>" page should be displayed.
+        <table border="1">
+            <tr>
+                <th>Type</th>
+                <th>Subtype</th>
+                <th>Location</th>
+                <th>Auditee</th>
+                <th>Scheduled Start Date</th>
+                <th>Scheduled End Date</th>
+                <th>Lead Auditor</th>
+                <th>Scope</th>
+            </tr>
+            <tr>
+                <td concordion:set="#type">Internal</td>
+                <td concordion:set="#subType">IOSA Self Assessment</td>
+                <td concordion:set="#location">AAA</td>
+                <td concordion:set="#auditee">Administrative</td>
+                <td>Today</td>
+                <td>Tomorrow</td>
+                <td concordion:set="#leadAuditor">Administrator Imx</td>
+                <td><span concordion:set="#scopeType">Process</span>  &gt;&gt;  <span concordion:set="#scope">Administrative</span></td>
+            </tr>
+        </table>
+
+    </div>
+</li>
+
+<li>
+    <div concordion:execute="#result = confirm()">
+        Click the Save button, the alarm information "<b><span concordion:assertEquals="#result">The changes have been saved!</span></b>" is displayed.  
+    </div>
+</li>
+
+</ol>
+
+
+</div>
+
+</body>
+</html>
